@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageSpeed AI - One-Click Website Performance Optimization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0066FF;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: "⚡";
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0066FF;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #0066FF, #004ACC);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f8faff 0%, #e6f0ff 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%230066FF" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="%23FF6B35" opacity="0.15"/><circle cx="40" cy="80" r="1.5" fill="%230066FF" opacity="0.1"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .primary-cta {
+            background: linear-gradient(135deg, #0066FF, #004ACC);
+            color: white;
+            padding: 18px 36px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .primary-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 102, 255, 0.4);
+        }
+
+        .secondary-cta {
+            background: white;
+            color: #0066FF;
+            padding: 18px 36px;
+            border: 2px solid #0066FF;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .secondary-cta:hover {
+            background: #0066FF;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0066FF, #004ACC);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: #f8faff;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FF6B35, #E55A2B);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 auto 30px;
+        }
+
+        .step h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .step p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.featured {
+            border-color: #0066FF;
+            background: linear-gradient(135deg, #f8faff 0%, #e6f0ff 100%);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0066FF;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #0066FF;
+            margin-bottom: 20px;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .features-list li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #666;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0066FF;
+            font-weight: bold;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            background: linear-gradient(135deg, #0066FF, #004ACC);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: linear-gradient(135deg, #FF6B35, #E55A2B);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: #f8faff;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 60px;
+            color: #0066FF;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #444;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0066FF, #FF6B35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+
+        .faq-item {
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #f8faff;
+            padding: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 18px;
+            color: #1a1a1a;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #e6f0ff;
+        }
+
+        .faq-answer {
+            padding: 25px;
+            color: #666;
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #0066FF;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #0066FF;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            color: #999;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background: #2a2a2a;
+            color: white;
+        }
+
+        .email-submit {
+            background: #0066FF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .email-submit:hover {
+            background: #004ACC;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .features-grid,
+            .steps-grid,
+            .pricing-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">PageSpeed AI</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#pricing" class="cta-button">Start Free Scan</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Fix Your Website Speed<br>With One Click</h1>
+                <p class="hero-subtitle">Stop losing customers to slow loading times. PageSpeed AI analyzes your website and automatically implements speed optimizations without breaking anything.</p>
+                <div class="hero-cta">
+                    <a href="#pricing" class="primary-cta">Get Free Speed Scan</a>
+                    <a href="#how-it-works" class="secondary-cta">See How It Works</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Small Businesses Choose PageSpeed AI</h2>
+            <p class="section-subtitle">Every 100ms delay costs you 7% in conversions. We fix the technical stuff so you can focus on growing your business.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>One-Click Fixes</h3>
+                    <p>No more confusing technical jargon. We don't just tell you what's wrong—we actually fix it. Image compression, caching, minification, and more happen automatically.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Our AI understands your website's context and won't break functionality while optimizing. Smart enough to know what to fix and what to leave alone.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Proven Results</h3>
+                    <p>See exactly how much faster your site becomes with before/after performance scores. Most customers see 40-60% improvement in loading times.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Works Everywhere</h3>
+                    <p>Shopify, WordPress, WooCommerce, custom sites—we optimize them all. No platform restrictions, no complex integrations required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Speed Optimization Made Simple</h2>
+            <p class="section-subtitle">From slow to lightning fast in three easy steps. No technical knowledge required.</p>
+            
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Scan Your Website</h3>
+                    <p>Enter your URL and our AI analyzes your site's performance, identifying speed bottlenecks and optimization opportunities.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Review Recommendations</h3>
+                    <p>See exactly what's slowing down your site with clear explanations and the impact each fix will have on your speed score.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Apply One-Click Fixes</h3>
+                    <p>Click to automatically implement optimizations. Our AI handles the technical work while preserving your site's functionality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Speed Plan</h2>
+            <p class="section-subtitle">Start free and upgrade as you grow. All plans include our AI-powered optimization engine.</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Scan</h3>
+                    <div class="price">Free</div>
+                    <ul class="features-list">
+                        <li>1 website scan per month</li>
+                        <li>Basic speed recommendations</li>
+                        <li>Performance score analysis</li>
+                        <li>Core Web Vitals report</li>
+                        <li>No automated fixes</li>
+                    </ul>
+                    <button class="pricing-cta">Start Free Scan</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h3>Optimize</h3>
+                    <div class="price">$29<span class="price-period">/month</span></div>
+                    <ul class="features-list">
+                        <li>Unlimited website scans</li>
+                        <li>One-click automated fixes</li>
+                        <li>Image optimization & compression</li>
+                        <li>Caching setup & configuration</li>
+                        <li>Up to 5 websites</li>
+                        <li>Before/after performance reports</li>
+                    </ul>
+                    <button class="pricing-cta">Start Optimizing</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Agency</h3>
+                    <div class="price">$99<span class="price-period">/month</span></div>
+                    <ul class="features-list">
+                        <li>White-label dashboard</li>
+                        <li>Client performance reporting</li>
+                        <li>Unlimited websites</li>
+                        <li>Priority support & onboarding</li>
+                        <li>API access for integrations</li>
+                        <li>Custom branding options</li>
+                    </ul>
+                    <button class="pricing-cta">Start Agency Trial</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Real results from real businesses who transformed their website speed.</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">PageSpeed AI increased our site speed by 58% and our conversion rate went up 23%. The one-click fixes saved us hundreds in developer costs.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div class="author-info">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Owner, Mitchell's Boutique</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">As a web designer, PageSpeed AI lets me offer speed optimization to all my clients without hiring developers. The white-label reporting is perfect.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JR</div>
+                        <div class="author-info">
+                            <h4>Jake Rodriguez</h4>
+                            <p>Freelance Web Designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Our restaurant website was painfully slow. PageSpeed AI fixed everything in minutes and now we get 40% more online orders. Game changer!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MT</div>
+                        <div class="author-info">
+                            <h4>Maria Thompson</h4>
+                            <p>Owner, Bella Vista Restaurant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything you need to know about website speed optimization.</p>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">Will PageSpeed AI break my website?</div>
+                    <div class="faq-answer">No. Our AI is trained to preserve functionality while optimizing. We test all changes in a safe environment first and provide rollback options if needed. Your website will remain fully functional.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How much faster will my website become?</div>
+                    <div class="faq-answer">Most customers see 40-60% improvement in loading times. Results vary based on your current site condition, but we guarantee measurable improvements or your money back.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do you work with my website platform?</div>
+                    <div class="faq-answer">Yes! PageSpeed AI works with WordPress, Shopify, WooCommerce, Squarespace, and custom-built websites. Our optimization techniques are platform-agnostic.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What if I'm not satisfied with the results?</div>
+                    <div class="faq-answer">We offer a 30-day money-back guarantee. If you don't see significant speed improvements, we'll refund your payment completely.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How is this different from other speed tools?</div>
+                    <div class="faq-answer">Unlike PageSpeed Insights or GTmetrix that only identify problems, we actually fix them. No technical knowledge required—just click and watch your site get faster.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>PageSpeed AI</h3>
+                    <p>Making website speed optimization accessible to every business owner. No technical skills required.</p>
+                    <div class="email-form">
+                        <input type="email" class="email-input" placeholder="Enter your email">
+                        <button class="email-submit">Subscribe</button>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <p><a href="#features">Features</a></p>
+                    <p><a href="#pricing">Pricing</a></p>
+                    <p><a href="#how-it-works">How it Works</a></p>
+                    <p><a href="#">API Documentation</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <p><a href="#">About Us</a></p>
+                    <p><a href="#">Contact</a></p>
+                    <p><a href="#">Privacy Policy</a></p>
+                    <p><a href="#">Terms of Service</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <p><a href="#">Help Center</a></p>
+                    <p><a href="#">Live Chat
